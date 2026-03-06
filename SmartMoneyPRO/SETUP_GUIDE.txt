@@ -1,0 +1,223 @@
+# SmartMoney PRO — Complete Setup Guide
+# Access from ANYWHERE in the world + Real market data
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 1 — RUN LOCALLY (Your Computer)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: Install Python 3
+  → Go to python.org/downloads
+  → Download Python 3.11 or newer
+  → IMPORTANT: Check "Add Python to PATH" during install
+
+STEP 2: Start the server
+  → Open folder: SmartMoneyPRO
+  → Right-click inside → "Open in Terminal" (or cmd)
+  → Type this and press Enter:
+
+      python server/app.py
+
+  → You will see:
+      ✓ Got prices for 15 instruments live
+      ✓ Listening on http://0.0.0.0:8080
+
+STEP 3: Open the app
+  → Open Chrome or Edge
+  → Go to: http://localhost:8080
+  → App opens with REAL live prices ✓
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 2 — ACCESS FROM ANYWHERE IN THE WORLD
+         (Free hosting on Railway.app — 5 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This gives you a URL like: https://smartmoney-pro.up.railway.app
+You can open it on your phone, tablet, anywhere — different WiFi, mobile data, etc.
+
+── METHOD A: Railway.app (Recommended — Free) ──
+
+STEP 1: Create free accounts
+  → github.com → Sign Up (free)
+  → railway.app → Sign Up with GitHub (free)
+
+STEP 2: Upload to GitHub
+  a) Go to github.com → Click "+" → "New repository"
+  b) Name it: smartmoney-pro
+  c) Click "Create repository"
+  d) You'll see a page with upload instructions
+
+  Upload your files:
+  → Click "uploading an existing file"
+  → Drag ALL files from SmartMoneyPRO folder
+  → (Make sure to include server/app.py, index.html, css/, js/ folders)
+  → Click "Commit changes"
+
+STEP 3: Deploy on Railway
+  a) Go to railway.app
+  b) Click "New Project"
+  c) Click "Deploy from GitHub repo"
+  d) Select your "smartmoney-pro" repo
+  e) Railway auto-detects Python and deploys!
+  f) Wait 2-3 minutes
+  g) Click "Settings" → "Domains" → "Generate Domain"
+  h) You get a URL like: https://smartmoney-pro-production.up.railway.app
+
+STEP 4: Open from anywhere
+  → Share that URL with your phone
+  → Open on any device, any network, anywhere in the world
+  → All data (signals, account, win rate) stored on Railway server
+  → Prices update from real APIs every 30 seconds
+
+── METHOD B: Render.com (Also Free) ──
+
+  a) Go to render.com → Sign Up
+  b) New → Web Service → Connect GitHub
+  c) Select your repo
+  d) Build Command: (leave empty)
+  e) Start Command: python server/app.py
+  f) Click "Create Web Service"
+  g) Get your URL in 5 minutes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 3 — ADD YOUR ANTHROPIC API KEY (For AI Analyzer)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The AI Chart Analyzer uses Claude. You need a free API key.
+
+STEP 1: Get API key
+  → Go to console.anthropic.com
+  → Sign up (free trial credits included)
+  → API Keys → Create Key
+  → Copy the key (starts with sk-ant-)
+
+STEP 2: Add to Railway (for global use)
+  → Railway dashboard → Your project → Variables
+  → Add variable:
+      Name:  ANTHROPIC_API_KEY
+      Value: sk-ant-your-key-here
+  → Click "Add"
+  → App redeploys automatically
+
+STEP 3: For local use only
+  Windows (cmd):
+    set ANTHROPIC_API_KEY=sk-ant-your-key-here
+    python server/app.py
+
+  Mac/Linux (terminal):
+    ANTHROPIC_API_KEY=sk-ant-your-key-here python server/app.py
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 4 — WHAT DATA IS REAL vs WHAT IS SIMULATED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+REAL (from live APIs):
+  ✓ EUR/USD, GBP/USD, USD/JPY, AUD/USD, NZD/USD prices  → open.er-api.com
+  ✓ BTC/USD, ETH/USD, SOL/USD, BNB/USD, XRP/USD prices  → CoinGecko API
+  ✓ NIFTY 50, BANK NIFTY prices                          → Yahoo Finance
+  ✓ 24-hour price changes for all instruments
+  ✓ Session timing (UTC-based)
+  ✓ Charts (TradingView embeds — 100% live)
+  ✓ Signal entry/SL/TP (calculated from real live price)
+  ✓ Account balance (stored on server, persistent)
+  ✓ Win rate (calculated from your real closed trades)
+
+CALCULATED (not from external feed):
+  ~ SMC signals (calculated by our engine from real price)
+    (True institutional SMC would need $500/month Bloomberg terminal)
+  ~ Fibonacci levels (math from real price)
+  ~ Position size (math: 1% risk / SL distance)
+
+The signals are based on REAL prices and REAL SMC math.
+They are not random. They follow the exact rules from your PPT course.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 5 — SESSIONS & SIGNAL TIMING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TOKYO SESSION     00:00 – 09:00 UTC
+  Pairs: USD/JPY, EUR/JPY, GBP/JPY, AUD/USD
+  Quality: MEDIUM
+
+LONDON SESSION    08:00 – 17:00 UTC
+  Pairs: GBP/USD, EUR/USD, GBP/JPY, EUR/JPY
+  Quality: HIGH
+  Best window: 08:00–10:00 UTC (opening sweep)
+
+NEW YORK SESSION  13:00 – 22:00 UTC
+  Pairs: EUR/USD, USD/JPY, GBP/USD, USD/CAD
+  Quality: HIGH
+  Best window: 13:00–15:00 UTC (NY open)
+
+LONDON+NY OVERLAP 13:00 – 17:00 UTC ⚡ HIGHEST PROBABILITY
+  Both sessions active simultaneously
+  Highest volume, best signal quality
+
+INDIA NSE         03:45 – 10:00 UTC (09:15–15:30 IST)
+  Pairs: NIFTY 50, BANK NIFTY
+  Quality: HIGH
+  Best window: 03:45–05:00 UTC (market open ORB)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 6 — $10 ACCOUNT RULES (NEVER BREAK THESE)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Risk only 1% per trade = $0.10 maximum
+2. Only take signals with Score 4/6 or higher
+3. Maximum 2 trades per day
+4. Never move stop loss against you
+5. Take TP1 profit, move SL to breakeven, let TP2 run
+6. If 3 losses in a day — STOP trading that day
+
+GROWTH PLAN:
+  $10.00 → trade 0.01 micro lots (forex)
+  $25.00 → trade 0.02 micro lots
+  $50.00 → trade 0.05 micro lots
+  $100.00 → trade 0.10 micro lots (standard nano lot)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+KEYBOARD SHORTCUTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ctrl+1  Dashboard
+Ctrl+2  Live Signals
+Ctrl+3  AI Analyzer
+Ctrl+4  Charts
+Ctrl+5  Backtest
+Ctrl+6  Performance
+Ctrl+7  Academy
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FOLDER STRUCTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SmartMoneyPRO/
+├── index.html              ← App entry point
+├── Procfile                ← Railway/Render deployment config
+├── requirements.txt        ← Python deps (stdlib only)
+├── SETUP_GUIDE.txt         ← This file
+│
+├── css/
+│   └── main.css            ← All styles
+│
+├── js/
+│   ├── api.js              ← Server communication layer
+│   ├── data.js             ← Account + trade store
+│   ├── app.js              ← Navigation + clock + ticker
+│   ├── dashboard.js        ← Dashboard
+│   ├── signals.js          ← Live session signals
+│   ├── analyzer.js         ← AI chart upload
+│   ├── charts.js           ← Real TradingView charts
+│   ├── backtest.js         ← Strategy backtest
+│   ├── performance.js      ← Win rate + equity
+│   └── academy.js          ← 6-level learning path
+│
+└── server/
+    ├── app.py              ← Python backend (prices + signals + DB)
+    └── data/
+        └── db.json         ← Your trades + account (auto-created)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DISCLAIMER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+This is an educational tool. Signals are not financial advice.
+Always test on demo account first. Never risk money you cannot lose.

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>SmartMoney PRO — Live Trading Intelligence</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="bg-orb"></div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark"><span>SM</span><div class="logo-ring"></div></div>
+    <div><div class="logo-name">SmartMoney</div><div class="logo-tag">PRO · LIVE</div></div>
+  </div>
+  <div class="nav-group">
+    <div class="nav-label">CORE</div>
+    <a class="nav-item active" data-page="dashboard"    onclick="go('dashboard')">   <i>◈</i> Dashboard    </a>
+    <a class="nav-item"       data-page="signals"       onclick="go('signals')">     <i>◉</i> Live Signals  <span class="pill live">LIVE</span></a>
+    <a class="nav-item"       data-page="analyzer"      onclick="go('analyzer')">    <i>⬡</i> AI Analyzer   </a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-label">MARKET</div>
+    <a class="nav-item"       data-page="charts"        onclick="go('charts')">      <i>▦</i> Charts        </a>
+    <a class="nav-item"       data-page="backtest"      onclick="go('backtest')">    <i>◌</i> Backtest      </a>
+    <a class="nav-item"       data-page="performance"   onclick="go('performance')"> <i>△</i> Performance   </a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-label">LEARN</div>
+    <a class="nav-item"       data-page="academy"       onclick="go('academy')">     <i>◎</i> Academy       <span class="pill new">6 LVL</span></a>
+  </div>
+  <div class="sidebar-acct">
+    <div class="acct-dot"></div>
+    <div>
+      <div class="acct-label">BALANCE</div>
+      <div class="acct-val" id="sb-balance">$10.00</div>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="page-title" id="page-title">Dashboard</span>
+      <div class="ticker" id="ticker">
+        <div class="tick-item"><span class="tick-sym">EUR/USD</span><span class="tick-px" id="t-eurusd">—</span><span class="tick-chg" id="tc-eurusd">—</span></div>
+        <span class="tick-sep">│</span>
+        <div class="tick-item"><span class="tick-sym">GBP/USD</span><span class="tick-px" id="t-gbpusd">—</span><span class="tick-chg" id="tc-gbpusd">—</span></div>
+        <span class="tick-sep">│</span>
+        <div class="tick-item"><span class="tick-sym">BTC/USD</span><span class="tick-px" id="t-btcusd">—</span><span class="tick-chg" id="tc-btcusd">—</span></div>
+        <span class="tick-sep">│</span>
+        <div class="tick-item"><span class="tick-sym">NIFTY</span><span class="tick-px" id="t-nifty">—</span><span class="tick-chg" id="tc-nifty">—</span></div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="status-dot-wrap"><div class="status-dot"></div><span id="server-status">CONNECTING...</span></div>
+      <div class="session-badge" id="session-badge">—</div>
+      <div class="utc-clock" id="utc-clock">00:00 UTC</div>
+    </div>
+  </header>
+
+  <!-- PAGES -->
+  <div id="pg-dashboard"  class="page active"></div>
+  <div id="pg-signals"    class="page"></div>
+  <div id="pg-analyzer"   class="page"></div>
+  <div id="pg-charts"     class="page"></div>
+  <div id="pg-backtest"   class="page"></div>
+  <div id="pg-performance"class="page"></div>
+  <div id="pg-academy"    class="page"></div>
+</main>
+
+<div id="toasts"></div>
+
+<script src="js/api.js"></script>
+<script src="js/data.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/signals.js"></script>
+<script src="js/analyzer.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/backtest.js"></script>
+<script src="js/performance.js"></script>
+<script src="js/academy.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
